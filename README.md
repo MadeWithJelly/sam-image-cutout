@@ -2,6 +2,8 @@
 
 A browser-based image cutout tool powered by Meta's Segment Anything Model (SAM). Upload any image, automatically segment objects, and copy/download individual cutouts with a single click.
 
+![](imgmal.jpeg)
+
 ## Features
 
 - **🎯 One-Click Segmentation**: Automatically detect and segment all objects in an image
@@ -16,12 +18,14 @@ A browser-based image cutout tool powered by Meta's Segment Anything Model (SAM)
 ## Tech Stack
 
 ### Frontend
+
 - **React + TypeScript**: Modern React with full type safety
 - **Vite**: Fast build tool and dev server
 - **Konva.js**: High-performance 2D canvas library for interactive graphics
 - **Web Workers**: Off-thread processing for segmentation
 
 ### Backend (SAM REST API)
+
 - **Python + Flask**: Lightweight REST API server
 - **PyTorch**: Deep learning framework for SAM
 - **Segment Anything**: Meta's official SAM implementation
@@ -69,6 +73,7 @@ python app.py
 ```
 
 The API will:
+
 1. Download the SAM model (~375MB) on first run
 2. Start on http://localhost:5001
 3. Show "SAM model ready!" when initialized
@@ -92,22 +97,26 @@ The app will run at http://localhost:5173 and automatically connect to the SAM A
 Perfect for designers, content creators, and anyone who needs to extract objects from images!
 
 ### Step 1: Upload an Image
+
 - Click **"Upload Image"** to select an image from your device
 - Or click **"Use Webcam"** to capture from your camera
 - The image appears on the left side of the screen
 
 ### Step 2: Segment the Image
+
 - Click **"✨ Start Segmentation"** button or click anywhere on the image
 - SAM automatically detects and segments all objects
 - Segments appear as thumbnails in a grid on the right
 
 ### Step 3: Copy or Download Cutouts
+
 - **Click any segment** in the grid to copy it to your clipboard
 - See a green checkmark when copied successfully
 - Use **💾 button** to download individual segments as PNG files
 - Click **"Download All"** to save all segments at once
 
 ### Step 4: Use Your Cutouts
+
 - **Paste** (Ctrl+V / Cmd+V) into any application:
   - Photoshop, Figma, Canva
   - Word, PowerPoint, Google Docs
@@ -115,6 +124,7 @@ Perfect for designers, content creators, and anyone who needs to extract objects
   - Any app that accepts images!
 
 ### Pro Tips
+
 - **Re-segment**: Click "Re-segment" to get different cutout results
 - **Delete segments**: Click 🗑️ on individual segments you don't need
 - **Clear all**: Remove all segments and start over
@@ -163,6 +173,7 @@ rest/
 ### Fallback Behavior
 
 If the SAM API is not available, the app automatically falls back to a local color-based flood-fill algorithm. This provides:
+
 - No external dependencies required
 - Instant setup
 - Reasonable segmentation for simple images
@@ -174,9 +185,9 @@ Edit `src/config.ts` to customize:
 
 ```typescript
 export const config = {
-  samApiUrl: 'http://localhost:5001',  // SAM API endpoint
-  useSamApi: true,                     // Enable/disable SAM
-  maxSegments: 15,                     // Max auto-segments
+  samApiUrl: "http://localhost:5001", // SAM API endpoint
+  useSamApi: true, // Enable/disable SAM
+  maxSegments: 15, // Max auto-segments
 };
 ```
 
@@ -232,16 +243,19 @@ curl http://localhost:5001/health
 ## Troubleshooting
 
 ### SAM API shows "disconnected"
+
 - Ensure Python server is running on port 5001
 - Check `rest/app.py` is running without errors
 - Model download can take 5-10 minutes on first run
 
 ### Segmentation is slow
+
 - Use GPU if available (CUDA)
 - Consider using `vit_b` model instead of larger variants
 - Reduce image size before uploading
 
 ### Out of memory
+
 - Switch to smaller model (`vit_b`)
 - Use CPU instead of GPU for large images
 - Reduce batch size in `sam_service.py`
